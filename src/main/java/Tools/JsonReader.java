@@ -32,35 +32,39 @@ public class JsonReader {
             InputStream inStream = connection.getInputStream();
             json = streamToString(inStream); // input stream to string
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("Kein Spieler mit diesem Namen vorhanden");
+            
+            //ex.printStackTrace();
         }
-        System.out.println(json);
         return json;                                      
     }
 
 public static void readJson(String file) {
         JSONParser parser = new JSONParser();
 
+
         try {
-            System.out.println("Reading JSON file from Java program");
             StringReader stringReader = new StringReader(file);
             JSONObject json = (JSONObject) parser.parse(stringReader);
-
+            
+            if (json.get("status") == "nok"){
+                String reason = (String) json.get("reason");
+                System.out.println("ERROR: " + reason);
+                
+            } else {
             String name = (String) json.get("name");
             String realm = (String) json.get("realm");
-            //long price = (long) json.get("price");
 
-            System.out.println("Name: " + name);
-            System.out.println("Realm: " + realm);
-            //System.out.println("price: " + price);
+            System.out.println("JSON - Name: " + name);
+            System.out.println("JSON - Realm: " + realm);
             
             Realm tmpRealm = new Realm();
             tmpRealm.setRealmName(realm);
-            System.out.println("Objektname: " + tmpRealm.getRealmName());
-            
+            System.out.println("OBJEKT - Name: " + tmpRealm.getRealmName());
+            }
             
         } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    } 
+            
+        } 
+    }
 }

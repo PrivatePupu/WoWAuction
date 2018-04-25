@@ -11,15 +11,20 @@ import Tools.JsonReader;
  * Main Class.
  * @version 0.1.1
  * @since 0.1.0
- * @author A. Hofmann
- * @author B.-A. Mokroß
+ * @author M. Stolze
  */
 public class Main {
         public static void main(String[] args) {
             
-            JsonReader jr = new JsonReader();
-            jr.readJson(JsonReader.jsonGetRequest("https://eu.api.battle.net/wow/character/Kult%20der%20Verdammten/Hototo?locale=de_DE&apikey=6cb9jp2e8zapv6u66v5zghahr5mhgb9d"));
+            String[] searchedPlayer = {"Hototo", "Lefthand"};
+            String[] searchedRealm = {"Kult%20der%20Verdammten","Die%20Arguswacht"};
+                  
             
+            JsonReader jr = new JsonReader();
+            for (int i= 0; i< searchedPlayer.length; i++) {
+            jr.readJson(JsonReader.jsonGetRequest("https://eu.api.battle.net/wow/character/" + searchedRealm[i] + "/" + searchedPlayer[i] + "?locale=de_DE&apikey=6cb9jp2e8zapv6u66v5zghahr5mhgb9d"));
+            
+            }
             
             
         }
